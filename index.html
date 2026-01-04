@@ -2,22 +2,24 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>我的相册</title>
   <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
   <style>
     body { margin: 0; background: #111; font-family: sans-serif; }
-    h1 { text-align: center; color: #fff; padding: 20px; }
+    h1 { text-align: center; color: #fff; padding: 20px; font-size: 1.5rem; }
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 10px;
-      padding: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 8px;
+      padding: 8px;
     }
     .gallery img {
       width: 100%;
       height: auto;
       cursor: pointer;
       border-radius: 6px;
+      display: block;
     }
   </style>
 </head>
@@ -30,39 +32,45 @@
 </div>
 
 <script type="module">
-  import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js';
+import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js';
 
-  const galleryDiv = document.getElementById('gallery');
+const galleryDiv = document.getElementById('gallery');
 
-  // 在这里填你的照片文件名数组
-  const photoFiles = [
-    '01.jpg',
-    '02.jpg',
-    '03.jpg',
-    // 如果有更多照片，直接在这里加名字
-  ];
+// 在这里填你的照片文件名数组
+const photoFiles = [
+  '01.jpg',
+  '02.jpg',
+  '03.jpg',
+  // 如果有更多照片，直接在这里加名字
+];
 
-  photoFiles.forEach(file => {
-    const img = new Image();
-    img.src = `photos/${file}`;
-    img.onload = () => {
-      const a = document.createElement('a');
-      a.href = img.src;
-      a.setAttribute('data-pswp-width', img.naturalWidth);
-      a.setAttribute('data-pswp-height', img.naturalHeight);
-      a.appendChild(img);
-      galleryDiv.appendChild(a);
-    };
-  });
+// 自动生成 <a> 标签并延迟加载图片
+photoFiles.forEach(file => {
+  const a = document.createElement('a');
+  a.href = `photos/${file}`;
 
-  const lightbox = new PhotoSwipeLightbox({
-    gallery: '#gallery',
-    children: 'a',
-    pswpModule: () => import('https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js')
-  });
-  lightbox.init();
+  const img = document.createElement('img');
+  img.setAttribute('loading', 'lazy'); // 延迟加载
+  img.src = `photos/${file}`;
+
+  // 图片加载完成后，设置 PhotoSwipe 宽高
+  img.onload = () => {
+    a.setAttribute('data-pswp-width', img.naturalWidth);
+    a.setAttribute('data-pswp-height', img.naturalHeight);
+  };
+
+  a.appendChild(img);
+  galleryDiv.appendChild(a);
+});
+
+// 初始化 PhotoSwipe
+const lightbox = new PhotoSwipeLightbox({
+  gallery: '#gallery',
+  children: 'a',
+  pswpModule: () => import('https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js')
+});
+lightbox.init();
 </script>
 
 </body>
 </html>
-
