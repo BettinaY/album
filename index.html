@@ -13,12 +13,30 @@
       gap: 10px;
       padding: 10px;
     }
-    .gallery img {
-      width: 100%;
-      height: auto;
-      cursor: pointer;
-      border-radius: 6px;
-    }
+.gallery {
+  column-count: 2;        /* 手机端 */
+  column-gap: 10px;
+  padding: 10px;
+}
+
+@media (min-width: 768px) {
+  .gallery {
+    column-count: 3;      /* 电脑端 */
+  }
+}
+
+.gallery a {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.gallery img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
   </style>
 </head>
 <body>
