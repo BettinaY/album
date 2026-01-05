@@ -7,36 +7,43 @@
   <style>
     body { margin: 0; background: #111; font-family: sans-serif; }
     h1 { text-align: center; color: #fff; padding: 20px; }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 10px;
-      padding: 10px;
-    }
+  
 .gallery {
-  column-count: 2;        /* 手机端 */
-  column-gap: 10px;
-  padding: 10px;
+  column-count: 2;
+  column-gap: 16px;
+  padding: 16px;
 }
 
+/* 电脑端 */
 @media (min-width: 768px) {
   .gallery {
-    column-count: 3;      /* 电脑端 */
+    column-count: 3;
   }
 }
 
 .gallery a {
   display: inline-block;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  break-inside: avoid;   /* 关键：防止图片被切断 */
+  text-decoration: none;
 }
 
 .gallery img {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 6px;
+  border-radius: 8px;
+  background: #222;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+
+/* 非常克制的交互感 */
+.gallery a:hover img {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+}
+
   </style>
 </head>
 <body>
