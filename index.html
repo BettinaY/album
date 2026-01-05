@@ -6,7 +6,26 @@
   <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
   <style>
     body { margin: 0; background: #111; font-family: sans-serif; }
-    h1 { text-align: left; color: #fff; padding: 20px; }
+  
+  .site-header {
+  max-width: 1200px;
+  margin: 36px auto 20px;
+  padding: 0 16px;
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #fff;
+  text-align: left;
+}
+
+.site-header .subtitle {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: #aaa;
+}
   
 .gallery {
   column-count: 2;
@@ -48,7 +67,10 @@
 </head>
 <body>
 
-<h1>BY照片精选</h1>
+<header class="site-header">
+  <h1>BY照片精选</h1>
+  <p class="subtitle">2025-2026 Selected photographs</p>
+</header>
 
 <div class="gallery" id="gallery">
   <!-- 照片会由 JavaScript 自动生成 -->
