@@ -3,119 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <title>BY照片精选</title>
+
+  <!-- PhotoSwipe 样式 -->
   <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
+
   <style>
-    body { margin: 0; background: #111; font-family: sans-serif; }
-  
-  .site-header {
-  max-width: 1200px;
-  margin: 36px auto 20px;
-  padding: 0 16px;
-}
+    body {
+      margin: 0;
+      background: #111;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Helvetica, Arial, sans-serif;
+    }
 
-.site-header h1 {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: 500;
-  color: #fff;
-  text-align: left;
-}
+    /* ===== 展览风标题区 ===== */
+    .site-header {
+      max-width: 1200px;
+      margin: 36px auto 20px;
+      padding: 0 16px;
+    }
 
-.site-header .subtitle {
-  margin-top: 6px;
-  font-size: 0.9rem;
-  color: #aaa;
-}
-  
-.gallery {
-  column-count: 2;
-  column-gap: 16px;
-  padding: 16px;
-}
+    .site-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #fff;
+      text-align: left;
+    }
 
-/* 电脑端 */
-@media (min-width: 768px) {
-  .gallery {
-    column-count: 3;
-  }
-}
+    .site-header .subtitle {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
 
-.gallery a {
-  display: inline-block;
-  width: 100%;
-  margin-bottom: 16px;
-  break-inside: avoid;   /* 关键：防止图片被切断 */
-  text-decoration: none;
-}
+    /* ===== 瀑布流画廊 ===== */
+    .gallery {
+      column-count: 2;
+      column-gap: 16px;
+      padding: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-.gallery img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 8px;
-  background: #222;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
+    /* 电脑端 */
+    @media (min-width: 768px) {
+      .gallery {
+        column-count: 3;
+      }
+    }
 
-/* 非常克制的交互感 */
-.gallery a:hover img {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-}
+    .gallery a {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 16px;
+      break-inside: avoid;
+      text-decoration: none;
+    }
 
+    .gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: #222;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    /* 非常克制的交互 */
+    .gallery a:hover img {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    }
   </style>
 </head>
+
 <body>
 
-<header class="site-header">
-  <h1>BY照片精选</h1>
-  <p class="subtitle">2025-2026 Selected photographs</p>
-</header>
+  <!-- 标题区 -->
+  <header class="site-header">
+    <h1>BY照片精选</h1>
+    <p class="subtitle">2025-2026 Selected photographs</p>
+  </header>
 
-<div class="gallery" id="gallery">
-  <!-- 照片会由 JavaScript 自动生成 -->
-</div>
+  <!-- 瀑布流画廊 -->
+  <div class="gallery" id="gallery">
+    <!-- 照片由 JS 自动生成 -->
+  </div>
 
-<script type="module">
-  import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js';
+  <!-- PhotoSwipe -->
+  <script type="module">
+    import PhotoSwipeLightbox from
+      'https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js';
 
-  const galleryDiv = document.getElementById('gallery');
+    const galleryDiv = document.getElementById('gallery');
 
-  // 在这里填你的照片文件名数组
-  const photoFiles = [
-    '01.jpg',
-    '02.jpg',
-    '03.jpg',
-    '04.jpg',
-    '05.jpg',
-    '06.jpg',
-    '07.jpg',
-    '08.jpg',
-    '09.jpg',
-    '10.jpg',
-    // 如果有更多照片，直接在这里加名字
-  ];
+    // 在这里填你的照片文件名
+    const photoFiles = [
+      '01.jpg',
+      '02.jpg',
+      '03.jpg',
+      '04.jpg',
+      '05.jpg',
+      '06.jpg',
+      '07.jpg',
+      '08.jpg',
+      '09.jpg',
+      '10.jpg'
+    ];
 
-  photoFiles.forEach(file => {
-    const img = new Image();
-    img.src = `photos/${file}`;
-    img.onload = () => {
-      const a = document.createElement('a');
-      a.href = img.src;
-      a.setAttribute('data-pswp-width', img.naturalWidth);
-      a.setAttribute('data-pswp-height', img.naturalHeight);
-      a.appendChild(img);
-      galleryDiv.appendChild(a);
-    };
-  });
+    photoFiles.forEach(file => {
+      const img = new Image();
+      img.src = `photos/${file}`;
 
-  const lightbox = new PhotoSwipeLightbox({
-    gallery: '#gallery',
-    children: 'a',
-    pswpModule: () => import('https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js')
-  });
-  lightbox.init();
-</script>
+      img.onload = () => {
+        const a = document.createElement('a');
+        a.href = img.src;
+        a.setAttribute('data-pswp-width', img.naturalWidth);
+        a.setAttribute('data-pswp-height', img.naturalHeight);
+        a.appendChild(img);
+        galleryDiv.appendChild(a);
+      };
+    });
+
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: '#gallery',
+      children: 'a',
+      pswpModule: () =>
+        import('https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js')
+    });
+
+    lightbox.init();
+  </script>
 
 </body>
 </html>
